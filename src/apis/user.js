@@ -1,4 +1,4 @@
-const { request } = require("@/utils");
+import { request } from "@/utils"
 
 export function loginAPI(formData) {
   return request({
