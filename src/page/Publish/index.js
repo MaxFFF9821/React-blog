@@ -17,7 +17,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons'
 import { Link, useSearchParams } from 'react-router-dom'
 import './index.scss'
-import { createArticleAPI, getArticleDetailAPI} from '@/apis/article'
+import { createArticleAPI, getArticleDetailAPI, updateArticleAPI} from '@/apis/article'
 import { useChannel } from '@/hooks/useChannel'
 
 const { Option } = Select
@@ -39,11 +39,22 @@ const Publish = () => {
         type: imageType,
         images: imageList
         .filter(item => item.response && item.response.data && item.response.data.url)
-        .map(item => item.response.data.url)
+          .map(item => { 
+            if (item.response) {
+              return item.response.data.url
+            } else {
+              return item.url
+            }
+          })
       },
       channel_id
     }
+    if (articleId) {
+      updateArticleAPI({ ...reqData, id: articleId })
+    } else {
+      
     createArticleAPI(reqData)
+      }
     
   }
   const [imageList, setImageList]=useState([])

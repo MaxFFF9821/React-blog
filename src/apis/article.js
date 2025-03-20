@@ -38,4 +38,12 @@ export function getArticleDetailAPI(id) {
   
 }
 
+export function updateArticleAPI(data) {
+  return request({
+    url: `/mp/articles/${data.id}?draft=false`,
+    method: 'PUT',
+    data
+  })
+}
+
 
